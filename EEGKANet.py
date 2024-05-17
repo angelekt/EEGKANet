@@ -57,7 +57,7 @@ class EEGKANetv4(nn.Module):
     def conv_block(self):
         self.block1 = nn.Sequential(
             ## KANconv2d temporal
-            KANConv(1, self.F1, (1, self.kernelLength),stride=1, bias=False, padding=(0, self.kernelLength // 2),), ## in_channels = 1, out_channels = 16, kernel_size = (1,64)
+            KANConv(1, self.F1, (1, self.kernelLength),stride=(1,1), bias=False, padding=(0, self.kernelLength // 2),), ## in_channels = 1, out_channels = 16, kernel_size = (1,64)
             ## batchNorm 1 "bnorm_temporal"
             nn.BatchNorm2d(self.F1, momentum=0.01, affine=True, eps=1e-3), ## num_features = 16
             # Depthwise Conv2d 1 "conv_spatial"
@@ -66,7 +66,7 @@ class EEGKANetv4(nn.Module):
                 self.F1 * self.D,
                 (self.channels, 1),
                 max_norm=1,
-                stride=1,
+                stride=(1,1),
                 bias=False,
                 groups=self.F1,
                 padding=(0, 0),
@@ -87,7 +87,7 @@ class EEGKANetv4(nn.Module):
                 self.F1 * self.D,
                 self.F1 * self.D,
                 (1, 16),
-                stride=1,
+                stride=(1,1),
                 bias=False,
                 groups=self.F1 * self.D,
                 padding=(0, 16 // 2),
@@ -97,7 +97,7 @@ class EEGKANetv4(nn.Module):
                 self.F1 * self.D,
                 self.F2,
                 (1, 1),
-                stride=1,
+                stride=(1,1),
                 bias=False,
                 padding=(0, 0),
             ),
