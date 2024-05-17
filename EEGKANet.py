@@ -4,7 +4,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
-from kan_efficient import KANConv,KANLinear
+from kan_efficient.KANConv import KAN_Convolutional_Layer as KANConv
+from kan_efficient.KANLinear import KANLinear
 
 class KANConv2dWithConstraint(nn.Conv2d):
     def __init__(self, *args, max_norm=1, **kwargs):
